@@ -5,6 +5,7 @@
 #include "raymath.h"
 #include <math.h>
 #include <stdio.h>
+#include "rlgl.h"
 
 #define MAX_CHIPS   60
 #define CHIP_RINGS  18
@@ -18,7 +19,6 @@
 #define CAN_BOTTOM  FLOOR_Y
 #define CAN_TOP    (FLOOR_Y + CAN_HEIGHT)
 
-// Chips settle in a ring OUTSIDE the can
 #define PILE_INNER  (CAN_RADIUS + 0.3f)
 #define PILE_OUTER  (CAN_RADIUS + 2.2f)
 
@@ -59,6 +59,7 @@ static void DrawChip(Vector3 pos, Vector3 axis, float angle, Color col) {
             float v1 = -1.0f + 2.0f * (j + 1) / CHIP_SPOKES;
             Vector3 p0 = Vector3Add(Vector3Transform(ChipVertex(u, v0), rot), pos);
             Vector3 p1 = Vector3Add(Vector3Transform(ChipVertex(u, v1), rot), pos);
+            rlSetLineWidth(5.0f); 
             DrawLine3D(p0, p1, c);
         }
     }
@@ -166,10 +167,10 @@ int main(void) {
     SetTargetFPS(60);
 
     Camera3D cam = {
-        .position   = { 8.0f, 3.5f, 8.0f },
-        .target     = { 0.0f, 1.2f, 0.0f },
-        .up         = { 0.0f, 1.0f, 0.0f },
-        .fovy       = 45.0f,
+        .position   = { 8.0f, 7.0f, 10.0f },
+        .target     = { 0.0f, -3.2f, 0.0f },
+        .up         = { 0.0f, 50.0f, 0.0f },
+        .fovy       = 50.0f,
         .projection = CAMERA_PERSPECTIVE
     };
 
